@@ -1,18 +1,19 @@
-import { NgModule } from '@angular/core'
-import { Routes } from '@angular/router'
-import { NativeScriptRouterModule } from '@nativescript/angular'
+import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular';
 
-import { ItemsComponent } from './item/items.component'
-import { ItemDetailComponent } from './item/item-detail.component'
+import { HomeComponent } from './home/home.component';
+import { AuthGuardService } from './authentication/auth-guard.service';
+import { LoginComponent } from './authentication/login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/items', pathMatch: 'full' },
-  { path: 'items', component: ItemsComponent },
-  { path: 'item/:id', component: ItemDetailComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService], runGuardsAndResolvers: 'always' },
+  { path: 'login', component: LoginComponent }
 ]
 
 @NgModule({
   imports: [NativeScriptRouterModule.forRoot(routes)],
   exports: [NativeScriptRouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
